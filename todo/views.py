@@ -13,7 +13,7 @@ class TodoView(TemplateView):
 
     def post(self, request, **kwargs):
       task = request.POST
-      new_todo = Todo(description=task.get('description'), is_complete=False, user=request.user)
+      new_todo = Todo(description=task.get('description'), is_complete=False)
       new_todo.save()
       return redirect('home')
 
