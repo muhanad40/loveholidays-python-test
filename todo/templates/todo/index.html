@@ -1,11 +1,11 @@
 {% extends 'todo/base.html' %}
 
 {% block content %}
-<form class="todo">
+<form class="todo" method="post">
   <h1 class="h3 mb-3 font-weight-normal text-center">Todo app</h1>
 
   <div class="todo__form">
-    <input type="text" class="todo__input form-control" placeholder="What do you want to do" autofocus />
+    <input name="description" type="text" class="todo__input form-control" placeholder="What do you want to do" autofocus />
 
     <button class="btn btn-lg btn-primary" type="submit">+ Add</button>
   </div>
@@ -15,30 +15,36 @@
       Tasks
     </div>
     <ul class="list-group list-group-flush">
+      {% if tasks|length == 0 %}
       <li class="list-group-item">
-        <div class="todo__description">
-          Buy milk
-        </div>
-
-        <div class="todo__actions">
-          <a href="/todo/1/complete">COMPLETE</a> |
-
-          <a href="/todo/1/remove">REMOVE</a>
-        </div>
+        <small><em>There are no items added</em></small>
       </li>
+      {% endif %}
 
-      <li class="list-group-item">
-        <div class="todo__description">
-          <del>Wash car</del>
-        </div>
+      {% for task in tasks %}
+        <li class="list-group-item">
+          <div class="todo__description">
+            {% if task.is_complete %}
+              <del>{{ task.description }}</del>
+            {% else %}
+              {{ task.description }}
+            {% endif %}
+          </div>
 
-        <div class="todo__actions">
-          <a href="/todo/1/incomplete">INCOMPLETE</a> |
+          <div class="todo__actions">
+            {% if task.is_complete %}
+              <a href="/todo/{{ task.id }}/incomplete">INCOMPLETE</a> |
+            {% else %}
+              <a href="/todo/{{ task.id }}/complete">COMPLETE</a> |
+            {% endif %}
 
-          <a href="/todo/1/remove">REMOVE</a>
-        </div>
-      </li>
+            <a href="/todo/{{ task.id }}/remove">REMOVE</a>
+          </div>
+        </li>
+      {% endfor %}
     </ul>
   </div>
+
+  {% csrf_token %}
 </form>
 {% endblock %}

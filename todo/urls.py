@@ -19,5 +19,8 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url('', views.home, name='home'),
+    url('(?P<id>\d+)/remove', views.RemoveTodo),
+    url('(?P<id>\d+)/complete', views.CompleteTodo),
+    url('(?P<id>\d+)/incomplete', views.IncompleteTodo),
+    url('', views.TodoView.as_view(), name='home'),
 ]
