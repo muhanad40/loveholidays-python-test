@@ -1,0 +1,28 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+<form class="form-signin">
+  <h1 class="h3 mb-3 font-weight-normal text-center">Todo app</h1>
+
+  <div class="form-signin__form">
+    <input type="text" class="form-signin__input form-control" placeholder="What do you want to do" autofocus />
+
+    <button class="btn btn-lg btn-primary" type="submit">+ Add</button>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      Tasks
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <a href="/todo/1/complete">COMPLETE</a> - Buy milk
+      </li>
+
+      <li class="list-group-item">
+        <a href="/todo/1/incomplete">INCOMPLETE</a> - <del>Wash car</del>
+      </li>
+    </ul>
+  </div>
+</form>
+{% endblock %}
